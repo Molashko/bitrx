@@ -1,3 +1,23 @@
+<?php
+require($_SERVER['DOCUMENT_ROOT'].'/bitrix/header.php');
+$APPLICATION->SetTitle("Каталог");
+?>
+<?php
+$APPLICATION->IncludeComponent(
+    'project:catalog.section',
+    '',
+    [
+        'SECTION_TITLE' => 'Каталог',
+        'SHOW_FILTER' => 'N',
+        'IBLOCK_ID' => IBLOCK_CATALOG_ID,
+        'SECTION_CODE' => $_REQUEST['SECTION_CODE'] ?? '',
+    ],
+    false,
+    ['HIDE_ICONS' => 'Y']
+);
+?>
+<?php
+require($_SERVER['DOCUMENT_ROOT'].'/bitrix/footer.php');
 <?
 define("HIDE_SIDEBAR", true);
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");

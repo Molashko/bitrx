@@ -64,12 +64,28 @@ $arUrlRewrite=array (
     'PATH' => '/bitrix/services/rest/index.php',
     'SORT' => 100,
   ),
-  4 => 
+  9 => 
   array (
-    'CONDITION' => '#^/news/#',
+    'CONDITION' => '#^/catalog/([\\w\\-]+)/([\\w\\-]+)/?#',
+    'RULE' => 'ELEMENT_CODE=$2&SECTION_CODE=$1',
+    'ID' => 'project:catalog.section',
+    'PATH' => '/catalog/element.php',
+    'SORT' => 100,
+  ),
+  10 => 
+  array (
+    'CONDITION' => '#^/catalog/([\\w\\-]+)/?#',
+    'RULE' => 'SECTION_CODE=$1',
+    'ID' => 'project:catalog.section',
+    'PATH' => '/catalog/index.php',
+    'SORT' => 100,
+  ),
+  11 => 
+  array (
+    'CONDITION' => '#^/faq/#',
     'RULE' => '',
-    'ID' => 'bitrix:news',
-    'PATH' => '/news/index.php',
+    'ID' => 'project:faq.list',
+    'PATH' => '/faq/index.php',
     'SORT' => 100,
   ),
 );
