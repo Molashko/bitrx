@@ -1,0 +1,37 @@
+# OS / IDE
+.DS_Store
+Thumbs.db
+*.log
+*.tmp
+.idea/
+.vscode/
+
+# Composer / PHP
+/vendor/
+/html/local/vendor/
+
+# Node
+node_modules/
+/fastonline_static-main/node_modules/
+/fastonline_static-main/dist/
+
+# Bitrix runtime
+/html/bitrix/cache/
+/html/bitrix/managed_cache/
+/html/bitrix/stack_cache/
+/html/upload/
+/html/bitrix/updates/
+/html/bitrix/backup/
+
+# Docker volumes / logs / db
+/docker/db/data/
+/docker/logs/
+
+# Temporary / build
+/fastonline_static-main/docs/*.map
+/fastonline_static-main/docs/*.zip
+
+# Secrets
+.env
+.env.*
+

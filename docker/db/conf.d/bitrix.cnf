@@ -1,0 +1,9 @@
+[mysqld]
+character-set-server = utf8mb4
+collation-server = utf8mb4_unicode_ci
+init_connect='SET NAMES utf8mb4'
+skip-character-set-client-handshake
+innodb_file_per_table = 1
+max_allowed_packet = 256M
+sql_mode=ERROR_FOR_DIVISION_BY_ZERO,NO_ZERO_DATE,NO_ZERO_IN_DATE
+

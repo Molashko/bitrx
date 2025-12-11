@@ -1,0 +1,19 @@
+<?php
+require($_SERVER['DOCUMENT_ROOT'] . '/bitrix/header.php');
+?>
+<?php
+// Шаблон для разделов (списки элементов).
+$APPLICATION->IncludeComponent(
+    'bitrix:main.include',
+    '',
+    [
+        'AREA_FILE_SHOW' => 'file',
+        'PATH' => SITE_TEMPLATE_PATH . '/includes/section-placeholder.php',
+    ],
+    false,
+    ['HIDE_ICONS' => 'Y']
+);
+?>
+<?php
+require($_SERVER['DOCUMENT_ROOT'] . '/bitrix/footer.php');
+
