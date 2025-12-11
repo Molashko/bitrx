@@ -69,6 +69,12 @@
   - `header.php`, `footer.php`, `main.php`, `inner.php`, `section.php`, `element.php`
   - `assets/` (css, js, images, fonts, favicon, sprite)
   - `includes/*-placeholder.php` — временные заглушки, будут заменены компонентами/версткой.
+- Подключены кастомные компоненты (пока с мок-данными, готовы к привязке ИБ):
+  - `project:cards.list` — универсальные карточки.
+  - `project:faq.list` — FAQ (аккордеон).
+  - `project:form.simple` — форма (поля, чекбокс согласия).
+  - `project:catalog.section` — список каталога/услуг (карточки, фильтр-заглушка).
+  - Главная (`main.php`) использует эти компоненты; модалки в `footer.php` подключены через `form.simple`.
 - Ассеты скопированы из `fastonline_static-main/docs/assets/` в `local/templates/site_template/assets/`.
 - Подключение ассетов через `Bitrix\Main\Page\Asset` (см. header.php).
 - Для переключения сайта на шаблон: Администрирование → Настройки → Сайты → Шаблоны сайтов → выбрать `site_template` для сайта (или прописать в `site`/`template` правила).

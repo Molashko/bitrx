@@ -95,63 +95,25 @@ $templatePath = SITE_TEMPLATE_PATH;
           <use xlink:href="<?= $templatePath ?>/assets/sprite.svg#icon-close"></use>
         </svg>
       </button>
-      <div class="modal__inner">
-        <div class="modal__title">Заказать обратный звонок</div>
-        <form class="form" action="#" data-form>
-          <div class="form__block">
-            <label>
-              <input type="text" placeholder="Имя Отчество" name="name">
-              <span>Имя Отчество</span>
-            </label>
-            <label>
-              <input type="email" placeholder="Email" name="email">
-              <span>Email</span>
-            </label>
-            <label>
-              <input type="tel" placeholder="Телефон" name="phone" data-tel>
-              <span>Телефон</span>
-            </label>
-            <label>
-              <textarea placeholder=""></textarea>
-              <span>Комментарий...</span>
-            </label>
-          </div>
-          <div class="form__block form__bottom">
-            <div class="form__agreement">
-              <label>
-                <input type="checkbox" name="agreement" data-form-agreement>
-              </label>
-              <div class="">Соглашаюсь на обработку моих персональных данных в соответствии с <a href="#">Политикой
-                конфиденциальности</a>
-                и принимаю условия <a href="#">Пользовательского соглашения</a>
-              </div>
-            </div>
-            <button class="button button--fill button--full-wide" type="submit" disabled="disabled" data-form-submit>
-              Отправить
-            </button>
-          </div>
-          <div class="modal__msg" data-form-success>
-            <div class="modal__msg-content">
-              <svg class="modal__msg-icon">
-                <use xlink:href="<?= $templatePath ?>/assets/sprite.svg#icon-success"></use>
-              </svg>
-              <div class="modal__msg-text">
-                Сообщение успешно отправлено!
-              </div>
-            </div>
-          </div>
-          <div class="modal__msg" data-form-error>
-            <div class="modal__msg-content">
-              <svg class="modal__msg-icon">
-                <use xlink:href="<?= $templatePath ?>/assets/sprite.svg#icon-error"></use>
-              </svg>
-              <div class="modal__msg-text">
-                Упс! Что-то пошло не так, пожалуйста, попробуйте ещё раз.
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
+      <?php
+      $APPLICATION->IncludeComponent(
+          'project:form.simple',
+          '',
+          [
+              'TITLE' => 'Заказать обратный звонок',
+              'FIELDS' => [
+                  ['CODE' => 'name', 'LABEL' => 'Имя Отчество', 'TYPE' => 'text', 'REQUIRED' => 'Y', 'PLACEHOLDER' => 'Имя Отчество'],
+                  ['CODE' => 'email', 'LABEL' => 'Email', 'TYPE' => 'email', 'REQUIRED' => 'N', 'PLACEHOLDER' => 'Email'],
+                  ['CODE' => 'phone', 'LABEL' => 'Телефон', 'TYPE' => 'tel', 'REQUIRED' => 'Y', 'PLACEHOLDER' => 'Телефон'],
+                  ['CODE' => 'comment', 'LABEL' => 'Комментарий...', 'TYPE' => 'textarea', 'REQUIRED' => 'N', 'PLACEHOLDER' => ''],
+              ],
+              'BUTTON_TEXT' => 'Отправить',
+              'SHOW_AGREEMENT' => 'Y',
+          ],
+          false,
+          ['HIDE_ICONS' => 'Y']
+      );
+      ?>
     </div>
     <div class="modal" id="modalRewiew">
       <button class="modal__close" type="button" data-fancybox-close>
@@ -159,59 +121,24 @@ $templatePath = SITE_TEMPLATE_PATH;
           <use xlink:href="<?= $templatePath ?>/assets/sprite.svg#icon-close"></use>
         </svg>
       </button>
-      <div class="modal__inner">
-        <div class="modal__title">Оставить отзыв</div>
-        <form class="form" action="#" data-form>
-          <div class="form__block">
-            <label>
-              <input type="text" placeholder="Имя Отчество" name="name">
-              <span>Имя Отчество</span>
-            </label>
-            <label>
-              <input type="email" placeholder="Email" name="email">
-              <span>Email</span>
-            </label>
-            <label>
-              <textarea placeholder=""></textarea>
-              <span>Комментарий...</span>
-            </label>
-          </div>
-          <div class="form__block form__bottom">
-            <div class="form__agreement">
-              <label>
-                <input type="checkbox" name="agreement" data-form-agreement>
-              </label>
-              <div class="">Соглашаюсь на обработку моих персональных данных в соответствии с <a href="#">Политикой
-                конфиденциальности</a>
-                и принимаю условия <a href="#">Пользовательского соглашения</a>
-              </div>
-            </div>
-            <button class="button button--fill button--full-wide" type="submit" disabled="disabled" data-form-submit>
-              Отправить
-            </button>
-          </div>
-          <div class="modal__msg" data-form-success>
-            <div class="modal__msg-content">
-              <svg class="modal__msg-icon">
-                <use xlink:href="<?= $templatePath ?>/assets/sprite.svg#icon-success"></use>
-              </svg>
-              <div class="modal__msg-text">
-                Сообщение успешно отправлено!
-              </div>
-            </div>
-          </div>
-          <div class="modal__msg" data-form-error>
-            <div class="modal__msg-content">
-              <svg class="modal__msg-icon">
-                <use xlink:href="<?= $templatePath ?>/assets/sprite.svg#icon-error"></use>
-              </svg>
-              <div class="modal__msg-text">
-                Упс! Что-то пошло не так, пожалуйста, попробуйте ещё раз.
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
+      <?php
+      $APPLICATION->IncludeComponent(
+          'project:form.simple',
+          '',
+          [
+              'TITLE' => 'Оставить отзыв',
+              'FIELDS' => [
+                  ['CODE' => 'name', 'LABEL' => 'Имя Отчество', 'TYPE' => 'text', 'REQUIRED' => 'Y', 'PLACEHOLDER' => 'Имя Отчество'],
+                  ['CODE' => 'email', 'LABEL' => 'Email', 'TYPE' => 'email', 'REQUIRED' => 'N', 'PLACEHOLDER' => 'Email'],
+                  ['CODE' => 'comment', 'LABEL' => 'Комментарий...', 'TYPE' => 'textarea', 'REQUIRED' => 'N', 'PLACEHOLDER' => ''],
+              ],
+              'BUTTON_TEXT' => 'Отправить',
+              'SHOW_AGREEMENT' => 'Y',
+          ],
+          false,
+          ['HIDE_ICONS' => 'Y']
+      );
+      ?>
     </div>
   </div>
 </div>
