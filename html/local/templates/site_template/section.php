@@ -12,6 +12,7 @@ $APPLICATION->IncludeComponent(
     [
         'SECTION_TITLE' => 'Каталог',
         'SHOW_FILTER' => 'N',
+        'IBLOCK_ID' => IBLOCK_CATALOG_ID,
         'ITEMS' => [
             [
                 'TITLE' => 'Услуга 1',

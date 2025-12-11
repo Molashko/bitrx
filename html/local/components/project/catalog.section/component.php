@@ -11,16 +11,24 @@ class ProjectCatalogSectionComponent extends CBitrixComponent
         $params['SECTION_TITLE'] = $params['SECTION_TITLE'] ?? '';
         $params['SHOW_FILTER'] = ($params['SHOW_FILTER'] ?? 'Y') === 'Y';
         $params['ITEMS'] = is_array($params['ITEMS']) ? $params['ITEMS'] : [];
+        $params['IBLOCK_ID'] = (int)($params['IBLOCK_ID'] ?? 0);
+        $params['SECTION_ID'] = (int)($params['SECTION_ID'] ?? 0);
+        $params['SECTION_CODE'] = $params['SECTION_CODE'] ?? '';
+        $params['PAGE_SIZE'] = (int)($params['PAGE_SIZE'] ?? 12);
         return $params;
     }
 
     public function executeComponent()
     {
         if ($this->StartResultCache()) {
-            // TODO: заменить mock на выборку из ИБ
+            if ($this->arParams['IBLOCK_ID'] > 0 && \Bitrix\Main\Loader::includeModule('iblock')) {
+                $items = $this->loadFromIblock();
+            } else {
+                $items = $this->prepareItems($this->arParams['ITEMS']);
+            }
             $this->arResult['SECTION_TITLE'] = $this->arParams['SECTION_TITLE'];
             $this->arResult['SHOW_FILTER'] = $this->arParams['SHOW_FILTER'];
-            $this->arResult['ITEMS'] = $this->prepareItems($this->arParams['ITEMS']);
+            $this->arResult['ITEMS'] = $items;
             $this->IncludeComponentTemplate();
         }
     }
@@ -38,6 +46,48 @@ class ProjectCatalogSectionComponent extends CBitrixComponent
                 'DESCRIPTION' => $item['DESCRIPTION'] ?? '',
             ];
         }, $items);
+    }
+
+    protected function loadFromIblock(): array
+    {
+        $filter = [
+            'IBLOCK_ID' => $this->arParams['IBLOCK_ID'],
+            'ACTIVE' => 'Y',
+        ];
+        if ($this->arParams['SECTION_ID']) {
+            $filter['SECTION_ID'] = $this->arParams['SECTION_ID'];
+        }
+        if ($this->arParams['SECTION_CODE']) {
+            $filter['SECTION_CODE'] = $this->arParams['SECTION_CODE'];
+        }
+
+        $items = [];
+        $res = \CIBlockElement::GetList(
+            ['SORT' => 'ASC', 'ID' => 'ASC'],
+            $filter,
+            false,
+            ['nTopCount' => $this->arParams['PAGE_SIZE']],
+            ['ID', 'NAME', 'PREVIEW_TEXT', 'PREVIEW_PICTURE', 'PROPERTY_PRICE', 'PROPERTY_OLD_PRICE', 'PROPERTY_BADGES', 'PROPERTY_LINK']
+        );
+        while ($row = $res->GetNext()) {
+            $img = '';
+            if (!empty($row['PREVIEW_PICTURE'])) {
+                $file = \CFile::GetPath($row['PREVIEW_PICTURE']);
+                if ($file) {
+                    $img = $file;
+                }
+            }
+            $items[] = [
+                'TITLE' => $row['NAME'],
+                'DESCRIPTION' => $row['PREVIEW_TEXT'],
+                'PRICE' => $row['PROPERTY_PRICE_VALUE'],
+                'OLD_PRICE' => $row['PROPERTY_OLD_PRICE_VALUE'],
+                'IMG' => $img,
+                'BADGES' => is_array($row['PROPERTY_BADGES_VALUE']) ? $row['PROPERTY_BADGES_VALUE'] : array_filter([$row['PROPERTY_BADGES_VALUE']]),
+                'LINK' => $row['PROPERTY_LINK_VALUE'] ?: '#',
+            ];
+        }
+        return $items;
     }
 }
 

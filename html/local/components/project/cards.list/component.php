@@ -23,9 +23,14 @@ class ProjectCardsListComponent extends CBitrixComponent implements Errorable
     public function executeComponent()
     {
         if ($this->StartResultCache()) {
-            // TODO: здесь позже будет выборка из инфоблока
+            $items = [];
+            if ((int)$this->arParams['IBLOCK_ID'] > 0 && Loader::includeModule('iblock')) {
+                $items = $this->loadFromIblock();
+            } else {
+                $items = $this->prepareItems($this->arParams['ITEMS']);
+            }
             $this->arResult['TITLE'] = $this->arParams['TITLE'];
-            $this->arResult['ITEMS'] = $this->prepareItems($this->arParams['ITEMS']);
+            $this->arResult['ITEMS'] = $items;
             $this->IncludeComponentTemplate();
         }
     }
@@ -42,6 +47,35 @@ class ProjectCardsListComponent extends CBitrixComponent implements Errorable
                 'TAGS' => $item['TAGS'] ?? [],
             ];
         }, $items);
+    }
+
+    protected function loadFromIblock(): array
+    {
+        $items = [];
+        $res = \CIBlockElement::GetList(
+            ['SORT' => 'ASC', 'ID' => 'ASC'],
+            ['IBLOCK_ID' => (int)$this->arParams['IBLOCK_ID'], 'ACTIVE' => 'Y'],
+            false,
+            false,
+            ['ID', 'NAME', 'PREVIEW_TEXT', 'PREVIEW_PICTURE', 'DETAIL_PAGE_URL', 'PROPERTY_LINK', 'PROPERTY_TAGS']
+        );
+        while ($row = $res->GetNext()) {
+            $img = '';
+            if (!empty($row['PREVIEW_PICTURE'])) {
+                $file = \CFile::GetPath($row['PREVIEW_PICTURE']);
+                if ($file) {
+                    $img = $file;
+                }
+            }
+            $items[] = [
+                'TITLE' => $row['NAME'],
+                'TEXT' => $row['PREVIEW_TEXT'],
+                'IMG' => $img,
+                'LINK' => $row['PROPERTY_LINK_VALUE'] ?: $row['DETAIL_PAGE_URL'] ?: '#',
+                'TAGS' => is_array($row['PROPERTY_TAGS_VALUE']) ? $row['PROPERTY_TAGS_VALUE'] : array_filter([$row['PROPERTY_TAGS_VALUE']]),
+            ];
+        }
+        return $items;
     }
 
     public function getErrors()

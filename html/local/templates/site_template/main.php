@@ -10,6 +10,7 @@ $APPLICATION->IncludeComponent(
     '',
     [
         'TITLE' => 'Популярные услуги',
+        'IBLOCK_ID' => IBLOCK_PROMO_ID,
         'ITEMS' => [
             ['TITLE' => 'Интеграция Битрикс', 'TEXT' => 'Настройка, внедрение и поддержка.', 'IMG' => SITE_TEMPLATE_PATH . '/assets/images/card-1.jpg', 'TAGS' => ['CRM', '24/7'], 'LINK' => '#'],
             ['TITLE' => 'Поддержка проектов', 'TEXT' => 'Сопровождение, SLA, развитие.', 'IMG' => SITE_TEMPLATE_PATH . '/assets/images/card-2.jpg', 'TAGS' => ['Support'], 'LINK' => '#'],
@@ -26,6 +27,7 @@ $APPLICATION->IncludeComponent(
     [
         'SECTION_TITLE' => 'Каталог решений',
         'SHOW_FILTER' => 'N',
+        'IBLOCK_ID' => IBLOCK_CATALOG_ID,
         'ITEMS' => [
             [
                 'TITLE' => 'Быстрый запуск интернет-магазина',
@@ -62,6 +64,7 @@ $APPLICATION->IncludeComponent(
     '',
     [
         'TITLE' => 'Ответы на вопросы',
+        'IBLOCK_ID' => IBLOCK_FAQ_ID,
         'ITEMS' => [
             ['QUESTION' => 'Как быстро запустите проект?', 'ANSWER' => 'Зависит от объёма. Для типового сайта — от 2 недель, для портала — индивидуально.'],
             ['QUESTION' => 'Работаете по SLA?', 'ANSWER' => 'Да, можем зафиксировать SLA на поддержку и развитие.'],

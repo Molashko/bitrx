@@ -9,3 +9,9 @@ if (file_exists($composerAutoload)) {
 
 // Здесь можно регистрировать event handlers, helpers, DI-сервисы.
 
+// Константы с ID инфоблоков (заполняются после запуска install-скрипта).
+$iblocksConfig = __DIR__ . '/iblocks.php';
+if (file_exists($iblocksConfig)) {
+    include_once $iblocksConfig;
+}
+
