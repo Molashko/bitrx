@@ -10,7 +10,16 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
   <?php if ($arResult['SUBTITLE']): ?>
     <div class="modal__subtitle"><?= htmlspecialcharsbx($arResult['SUBTITLE']) ?></div>
   <?php endif; ?>
-  <form class="form" action="#" data-form>
+  <form class="form" action="" method="post" data-form>
+    <?= bitrix_sessid_post(); ?>
+    <input type="hidden" name="project_form_simple" value="Y">
+    <?php if (!empty($arResult['ERRORS'])): ?>
+      <div class="form__errors" style="color:red;margin-bottom:10px;">
+        <?php foreach ($arResult['ERRORS'] as $error): ?>
+          <div><?= htmlspecialcharsbx($error) ?></div>
+        <?php endforeach; ?>
+      </div>
+    <?php endif; ?>
     <div class="form__block">
       <?php foreach ($arResult['FIELDS'] as $field): ?>
         <label>
@@ -51,7 +60,7 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
         <?= htmlspecialcharsbx($arResult['BUTTON_TEXT']) ?>
       </button>
     </div>
-    <div class="modal__msg" data-form-success>
+    <div class="modal__msg" data-form-success style="<?= $arResult['SUCCESS'] ? '' : 'display:none;' ?>">
       <div class="modal__msg-content">
         <svg class="modal__msg-icon">
           <use xlink:href="<?= SITE_TEMPLATE_PATH ?>/assets/sprite.svg#icon-success"></use>
@@ -61,7 +70,7 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
         </div>
       </div>
     </div>
-    <div class="modal__msg" data-form-error>
+    <div class="modal__msg" data-form-error style="<?= !$arResult['SUCCESS'] && !empty($arResult['ERRORS']) ? '' : 'display:none;' ?>">
       <div class="modal__msg-content">
         <svg class="modal__msg-icon">
           <use xlink:href="<?= SITE_TEMPLATE_PATH ?>/assets/sprite.svg#icon-error"></use>

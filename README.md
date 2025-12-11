@@ -80,4 +80,29 @@
 - Для переключения сайта на шаблон: Администрирование → Настройки → Сайты → Шаблоны сайтов → выбрать `site_template` для сайта (или прописать в `site`/`template` правила).
 - Статика `fastonline_static-main/` будет удалена после полного переноса.
 
+## Инфоблоки
+- Скрипт создания ИБ: `local/scripts/install_iblocks.php`
+  - Тип `content`, ИБ: `catalog`, `faq`, `promo`
+  - Запуск: `docker compose exec php php -f /var/www/html/local/scripts/install_iblocks.php`
+  - Обновляет `local/php_interface/iblocks.php` (константы IBLOCK_*).
+- Используемые свойства:
+  - catalog: PRICE, OLD_PRICE, BADGES (список), LINK
+  - promo: LINK, TAGS
+  - faq: вопрос (NAME), ответ (DETAIL_TEXT)
+
+## ЧПУ / Маршрутизация
+- `urlrewrite.php` добавлены правила для каталога и FAQ.
+- Страницы:
+  - `/catalog/` — список (section)
+  - `/catalog/#SECTION_CODE#/` — список раздела
+  - `/catalog/#SECTION_CODE#/#ELEMENT_CODE#/` — детальная (пока шаблон element.php)
+  - `/faq/` — список FAQ
+
+## Формы
+- Компонент `project:form.simple` отправляет письмо через `Bitrix\Main\Mail\Mail` на RECIPIENT (или `email_from`), с серверной валидацией и защитой сессии.
+- Для кастомизации получателя/темы: параметры `RECIPIENT`, `EVENT_SUBJECT`.
+
+## После поднятия
+- Запустить скрипт ИБ (см. выше), удостовериться в корректности ID в `local/php_interface/iblocks.php`.
+- При необходимости настроить email_from и RECIPIENT для форм.
 

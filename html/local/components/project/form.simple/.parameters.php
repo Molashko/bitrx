@@ -28,6 +28,18 @@ $arComponentParameters = [
             'TYPE' => 'STRING',
             'DEFAULT' => 'Отправить',
         ],
+        'RECIPIENT' => [
+            'PARENT' => 'ADDITIONAL_SETTINGS',
+            'NAME' => 'E-mail получателя (если пусто — email_from из настроек)',
+            'TYPE' => 'STRING',
+            'DEFAULT' => '',
+        ],
+        'EVENT_SUBJECT' => [
+            'PARENT' => 'ADDITIONAL_SETTINGS',
+            'NAME' => 'Тема письма',
+            'TYPE' => 'STRING',
+            'DEFAULT' => 'Заявка с сайта',
+        ],
         'SHOW_AGREEMENT' => [
             'PARENT' => 'ADDITIONAL_SETTINGS',
             'NAME' => 'Показывать чекбокс согласия',
